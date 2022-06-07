@@ -20,22 +20,35 @@ function updateProducts(product, price, isIncrease){
     // get total balance field
     const balancefield = document.getElementById(product + '-balance');
     balancefield.innerText = price * productInputNumber;
-    
-    
-    
-}
-//=================FOR CASING======================
-// Apply Add Event Listener on case-plus-btn
-document.getElementById('case-plus-btn').addEventListener('click', function(){
-    
-    updateProducts('case', 60, true);
-});
 
-// Apply Add Event Listener on case-minus-btn
-document.getElementById('case-minus-btn').addEventListener('click', function(){
+    // total cost amount
+    calculateBalance()
+       
+}
+// get input value
+function inputValue(productId){
+    const phoneInput = document.getElementById(productId + '-input');
+    const phoneInputNumber = parseInt(phoneInput.value);
+    return phoneInputNumber;
+}
+
+// Calculate total balance
+function calculateBalance(){
     
-    updateProducts('case', 60, false);
-});
+    const phoneBalance = inputValue('phone') * 1250;
+    const caseBalance = inputValue('case') * 60;
+    // get total cost
+    const productCost = phoneBalance + caseBalance;
+    // get total cost included tax
+    const taxAmount = productCost / 10;
+    // get total balance
+    const totalCost = productCost + taxAmount;
+    // get sub-total
+    const subTotal = document.getElementById('sub-total').innerText = productCost;
+    const tax = document.getElementById('tax-amount').innerText = taxAmount;
+    const totalBalance = document.getElementById('total-price').innerText = totalCost;
+
+}
 
 // ==================FOR PHONE========================
 // Apply Add Event Listener on phone-plus-btn
@@ -46,4 +59,19 @@ document.getElementById('phone-plus-btn').addEventListener('click', function(){
 // Apply Add Event Listener on phone-plus-btn
 document.getElementById('phone-minus-btn').addEventListener('click', function(){
     updateProducts('phone', 1250, false);
-})
+});
+
+//=================FOR CASING======================
+// Apply Add Event Listener on case-plus-btn
+document.getElementById('case-plus-btn').addEventListener('click', function(){
+    
+    updateProducts('case', 60, true);
+    
+});
+
+// Apply Add Event Listener on case-minus-btn
+document.getElementById('case-minus-btn').addEventListener('click', function(){
+    
+    updateProducts('case', 60, false);
+});
+
